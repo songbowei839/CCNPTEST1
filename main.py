@@ -6,12 +6,12 @@ if __name__ == '__main__':
     _db = MysqlDBOperator("root", "123456", "10.130.28.3", "ccnp")
     _db.connect()
 
-    enterprise_id = '10104'
-    start_num = 30000
-    number_count = 1
+    enterprise_id = '10106'
+    start_num = 10121
+    number_count = 5
     isp_identity = 'isp'
     isp_count = 1
-    areaCode_count = 1
+    areaCode_count = 4
 
     szSQL = f"select area_code from mobile_info group by area_code limit {areaCode_count}"
     results = _db.query(szSQL)
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     #         """
     for number in range(start_num, start_num + number_count):
         id = number % isp_count
-        areaID = number % 100
+        areaID = number % areaCode_count
 
         isp_code = f"{enterprise_id}_{isp_identity}_{id}"
         szSQL = f"""
